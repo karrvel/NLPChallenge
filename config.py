@@ -1,6 +1,0 @@
-# Bot
-TOKEN = "5960463812:AAF055Skx1fosj8O_O_8QQTGdxHXW668JSo"
-
-# PDF
-FILES = "files/"
-AUDIOS = "audios/"
