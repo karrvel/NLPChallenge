@@ -33,23 +33,19 @@ async def get_file(message: types.file.File):
 @dp.message_handler(lambda message: message.text == "Audio olish")
 async def convertEn(message: types.Message):
     # Download file
-    await message.reply("Downloading...", reply_markup=types.ReplyKeyboardRemove())
+    await message.reply("Processing...", reply_markup=types.ReplyKeyboardRemove())
     await bot.download_file_by_id(document.file_id, FILES + document.file_name) 
 
     # PDF to TXT
-    await bot.edit_message_text("Converting...", message.chat.id, message.message_id + 1)
     pdf = ReadPDF(FILES + document.file_name)
     await pdf.read()
 
     # Create audio
-    await bot.edit_message_text("Creating audio...", message.chat.id, message.message_id + 1)
     voice = Voice()
     await voice.toEng(pdf.txt, AUDIOS + document.file_name[:-3] + "mp3")
 
     # Upload audio
-    await bot.edit_message_text("Uploading...", message.chat.id, message.message_id + 1)
     await message.reply_audio(audio=open(AUDIOS + document.file_name[:-3] + "mp3", "rb"))
-    await bot.edit_message_text("Done!", message.chat.id, message.message_id + 1)
 
 
 @dp.message_handler(lambda message: message.text == "Tarjima qilish")
